@@ -4,7 +4,7 @@ import { ApolloProvider } from "@apollo/react-hooks";
 import Producers from "./Producers";
 
 const client = new ApolloClient({
-  uri: process.env.serverURI
+  uri: process.env.REACT_APP_SERVER_URI
 });
 
 function App() {
