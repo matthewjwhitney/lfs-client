@@ -6,7 +6,7 @@
     },
     {
       "name": "lfs-server",
-      "path": "..\\local-food-services"
+      "path": "..\\lfs-server"
     }
   ],
   "settings": {}

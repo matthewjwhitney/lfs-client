@@ -4,7 +4,7 @@ import { ApolloProvider } from "@apollo/react-hooks";
 import Producers from "./Producers";
 
 const client = new ApolloClient({
-  uri: "http://localhost:4000/graphql"
+  uri: process.env.serverURI
 });
 
 function App() {
