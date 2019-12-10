@@ -4,6 +4,8 @@ import { ApolloProvider } from "@apollo/react-hooks";
 
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Container from "@material-ui/core/Container";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
+import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 
 import Producers from "./Producers";
 
@@ -12,13 +14,26 @@ const client = new ApolloClient({
 });
 
 function App() {
+  const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
+
+  const theme = React.useMemo(
+    () =>
+      createMuiTheme({
+        palette: {
+          type: prefersDarkMode ? "dark" : "light"
+        }
+      }),
+    [prefersDarkMode]
+  );
   return (
     <ApolloProvider client={client}>
-      <CssBaseline>
-        <Container>
-          <Producers />
-        </Container>
-      </CssBaseline>
+      <ThemeProvider theme={theme}>
+        <CssBaseline>
+          <Container>
+            <Producers />
+          </Container>
+        </CssBaseline>
+      </ThemeProvider>
     </ApolloProvider>
   );
 }
