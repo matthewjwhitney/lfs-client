@@ -1,0 +1,13 @@
+{
+  "folders": [
+    {
+      "name": "lfs-client",
+      "path": "."
+    },
+    {
+      "name": "lfs-server",
+      "path": "..\\local-food-services"
+    }
+  ],
+  "settings": {}
+}
