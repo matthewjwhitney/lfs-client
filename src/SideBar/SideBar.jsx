@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
   drawerPaper: {
     width: drawerWidth
   },
-  toolbar: theme.mixins.toolbar
+  headerSpacer: theme.mixins.toolbar
 }));
 
 function SideBar(props) {
@@ -34,7 +34,7 @@ function SideBar(props) {
         paper: classes.drawerPaper
       }}
     >
-      <div className={classes.toolbar} />
+      <div className={classes.headerSpacer} />
       <List>
         {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
           <ListItem button key={text}>

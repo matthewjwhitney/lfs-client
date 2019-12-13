@@ -9,5 +9,8 @@
       "path": "..\\lfs-server"
     }
   ],
-  "settings": {}
+  "settings": {
+    "editor.formatOnSave": true,
+    "workbench.panel.defaultLocation": "right"
+  }
 }

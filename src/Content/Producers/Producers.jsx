@@ -1,15 +1,20 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { useQuery } from "@apollo/react-hooks";
 import gql from "graphql-tag";
 import { makeStyles } from "@material-ui/core/styles";
-import { Grid, Box } from "@material-ui/core";
-import Skeleton from "@material-ui/lab/Skeleton";
-import ProducerCard from "./ProducerCard";
-import { getInitials } from "../../utils/string";
+import { camelCaseToTitle } from "../../utils/string";
+import Paper from "@material-ui/core/Paper";
+import "@devexpress/dx-react-grid";
+import {
+  Grid,
+  Table,
+  TableHeaderRow
+} from "@devexpress/dx-react-grid-material-ui";
+import { Toolbar, Typography } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
-  displayBlock: {
-    display: "block"
+  root: {
+    maxWidth: "100%"
   }
 }));
 
@@ -24,6 +29,7 @@ const PRODUCERS = gql`
       email
       website
       notes
+      id
     }
   }
 `;
@@ -37,34 +43,22 @@ function Producers() {
   if (error) return <div>{error.message}</div>;
 
   const { producers } = data;
-
+  const columns = Object.keys(producers[0]).map(key => ({ title: camelCaseToTitle(key), name: key }
+  ));
   return (
-    <Grid container>
-      {producers.map(producer => (
-        <Grid item key={producer.name}>
-          <ProducerCard
-            avatar={getInitials(producer.name)}
-            header={producer.name}
-            placeholder={<Skeleton variant="rect" height={200} />}
-            bodyAboveExpand={
-              <Box className={classes.displayBlock}>
-                <div>Location: {producer.location}</div>
-                <div>ProductTypes: {producer.productTypes}</div>
-              </Box>
-            }
-            bodyBelowExpand={
-              <Fragment>
-                <div>ContactPerson: {producer.contactPerson}</div>
-                <div>PhoneNumber: {producer.phoneNumber}</div>
-                <div>Email: {producer.email}</div>
-                <div>Website: {producer.website}</div>
-                <div>Notes: {producer.notes}</div>
-              </Fragment>
-            }
-          />
+    <div className={classes.root}>
+      <Paper>
+        <Toolbar>
+          <Typography variant="h6">
+            {producers[0].__typename}
+          </Typography>
+        </Toolbar>
+        <Grid rows={producers} columns={columns}>
+          <Table />
+          <TableHeaderRow />
         </Grid>
-      ))}
-    </Grid>
+      </Paper>
+    </div>
   );
 }
 
