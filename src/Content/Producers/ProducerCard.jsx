@@ -35,7 +35,7 @@ export default function ProducerCard(props) {
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
-  console.log(props);
+
   return (
     <Card className={classes.card}>
       <CardHeader

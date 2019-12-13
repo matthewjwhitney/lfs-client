@@ -5,7 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Grid, Box } from "@material-ui/core";
 import Skeleton from "@material-ui/lab/Skeleton";
 import ProducerCard from "./ProducerCard";
-import { getInitials } from "../utils/string";
+import { getInitials } from "../../utils/string";
 
 const useStyles = makeStyles(theme => ({
   displayBlock: {
@@ -41,7 +41,7 @@ function Producers() {
   return (
     <Grid container>
       {producers.map(producer => (
-        <Grid item xs={12} sm={6} md={4} lg={4} xl={3} key={producer.name}>
+        <Grid item key={producer.name}>
           <ProducerCard
             avatar={getInitials(producer.name)}
             header={producer.name}

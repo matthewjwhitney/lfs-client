@@ -1,13 +1,23 @@
 import React from "react";
 import ApolloClient from "apollo-boost";
 import { ApolloProvider } from "@apollo/react-hooks";
-
 import CssBaseline from "@material-ui/core/CssBaseline";
-import Container from "@material-ui/core/Container";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
-import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
+import {
+  ThemeProvider,
+  createMuiTheme,
+  makeStyles
+} from "@material-ui/core/styles";
 
-import Producers from "./Producers";
+import Header from "./Header";
+import SideBar from "./SideBar";
+import Content from "./Content";
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    display: "flex"
+  }
+}));
 
 const client = new ApolloClient({
   uri: process.env.REACT_APP_SERVER_URI
@@ -25,14 +35,18 @@ function App() {
       }),
     [prefersDarkMode]
   );
+
+  const classes = useStyles();
   return (
     <ApolloProvider client={client}>
       <ThemeProvider theme={theme}>
-        <CssBaseline>
-          <Container>
-            <Producers />
-          </Container>
-        </CssBaseline>
+        <div className={classes.root}>
+          <CssBaseline>
+            <Header />
+            <SideBar />
+            <Content />
+          </CssBaseline>
+        </div>
       </ThemeProvider>
     </ApolloProvider>
   );
