@@ -60,7 +60,7 @@ export default function Producers() {
     producers = data.producers
 
   }
-  const title = !loading && data ? producers[0].__typename : 'No Data'
+  const title = 'Producers'
 
   const commitChanges = ({ added, changed, deleted }) => {
     if (added && Object.values(added)[0]) {

@@ -11,9 +11,10 @@ import {
     Toolbar
 } from "@devexpress/dx-react-grid-material-ui";
 import { Paper } from "@material-ui/core";
-import { EditingState, IntegratedFiltering, SearchState } from "@devexpress/dx-react-grid";
+import { EditingState, IntegratedFiltering, IntegratedSorting, SearchState, SortingState } from "@devexpress/dx-react-grid";
 
 import ToolbarTitle from './plugins/ToolbarTitle';
+import { Command } from "./Command";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -38,14 +39,17 @@ export default function DataTable(props) {
                 <Grid rows={rows} columns={columns} getRowId={getRowId}>
                     <EditingState onCommitChanges={commitChanges} />
                     <SearchState />
+                    <SortingState
+                        defaultSorting={[{ columnName: 'name', direction: 'asc' }]}
+                    />
+                    <IntegratedSorting />
                     <IntegratedFiltering />
-                    <Toolbar >
-                    </Toolbar>
+                    <Toolbar />
                     <ToolbarTitle >{title}</ToolbarTitle>
                     <SearchPanel />
                     <Table />
-                    <TableHeaderRow />
-                    <TableEditColumn showAddCommand showEditCommand showDeleteCommand />
+                    <TableHeaderRow showSortingControls />
+                    <TableEditColumn showAddCommand showEditCommand showDeleteCommand commandComponent={Command} />
                     <TableEditRow />
                 </Grid>
             </Paper>

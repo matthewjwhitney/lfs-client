@@ -10,15 +10,14 @@ import {
 } from "@material-ui/core/styles";
 import { SnackbarProvider } from 'notistack';
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { fas } from '@fortawesome/free-solid-svg-icons'
-import { faSeedling } from '@fortawesome/free-solid-svg-icons'
+import { fas, faSeedling, faEdit, faSave, faTrash, faTimes, faPlus } from '@fortawesome/free-solid-svg-icons'
 
 import Header from "./Header";
 import Navigation from "./Navigation";
 import Content from "./Content";
 import { BrowserRouter } from "react-router-dom";
 
-library.add(fas, faSeedling)
+library.add(fas, faSeedling, faEdit, faSave, faTrash, faTimes, faPlus)
 
 const useStyles = makeStyles(theme => ({
   root: {
