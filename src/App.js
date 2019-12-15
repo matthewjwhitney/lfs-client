@@ -8,6 +8,7 @@ import {
   createMuiTheme,
   makeStyles
 } from "@material-ui/core/styles";
+import { SnackbarProvider } from 'notistack';
 
 import Header from "./Header";
 import SideBar from "./SideBar";
@@ -42,9 +43,11 @@ function App() {
       <ThemeProvider theme={theme}>
         <div className={classes.root}>
           <CssBaseline>
-            <Header />
-            <SideBar />
-            <Content />
+            <SnackbarProvider maxSnack={3}>
+              <Header />
+              <SideBar />
+              <Content />
+            </SnackbarProvider>
           </CssBaseline>
         </div>
       </ThemeProvider>

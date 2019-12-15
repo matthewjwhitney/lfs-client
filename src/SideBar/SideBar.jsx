@@ -15,11 +15,11 @@ const drawerWidth = 240;
 
 const useStyles = makeStyles(theme => ({
   drawer: {
-    width: drawerWidth,
+    minWidth: drawerWidth,
     flexShrink: 0
   },
   drawerPaper: {
-    width: drawerWidth
+    minWidth: drawerWidth
   },
   headerSpacer: theme.mixins.toolbar
 }));

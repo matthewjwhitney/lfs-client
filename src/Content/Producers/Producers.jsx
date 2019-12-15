@@ -1,20 +1,10 @@
 import React from "react";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 import { makeStyles } from "@material-ui/core/styles";
-import { camelCaseToTitle } from "../../utils/string";
-import {
-  Grid,
-  Table,
-  TableHeaderRow,
-  TableEditRow,
-  TableEditColumn,
-  SearchPanel,
-  Toolbar as GridToolbar
-} from "@devexpress/dx-react-grid-material-ui";
-import { Toolbar, Typography, Paper } from "@material-ui/core";
-import { EditingState, IntegratedFiltering, SearchState } from "@devexpress/dx-react-grid";
 
 import { GET_PRODUCERS, ADD_PRODUCER, UPDATE_PRODUCER, DELETE_PRODUCER } from "./queries";
+import DataTable from "../../components/DataTable";
+import { useSnackbar } from "notistack";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -22,12 +12,8 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const getRowId = row => row.id;
-
-function Producers() {
+export default function Producers() {
   const classes = useStyles();
-
-  const { loading, error, data } = useQuery(GET_PRODUCERS);
 
   const [addProducer] = useMutation(
     ADD_PRODUCER,
@@ -57,16 +43,25 @@ function Producers() {
     }
   );
 
-  if (error) return <div>{error.message}</div>;
+  let producers = [];
 
-  let rows = [];
-  let columns = [];
+  const { loading, error, data } = useQuery(GET_PRODUCERS);
+
+  const { enqueueSnackbar } = useSnackbar();
+  if (error) {
+    enqueueSnackbar('Error fetching data', { variant: 'error' });
+  };
+
+  if (loading) {
+    enqueueSnackbar('Fetching data');
+  };
+
   if (data) {
-    rows = data.producers
-    columns = Object.keys(rows[0]).map(key => ({
-      title: camelCaseToTitle(key), name: key
-    }));
+    enqueueSnackbar('Data fetched successfully', { variant: 'success' });
+    producers = data.producers
+
   }
+  const title = !loading && data ? producers[0].__typename : 'No Data'
 
   const commitChanges = ({ added, changed, deleted }) => {
     if (added && Object.values(added)[0]) {
@@ -93,24 +88,11 @@ function Producers() {
 
   return (
     <div className={classes.root}>
-      <Paper>
-        <Toolbar>
-          <Typography variant="h5">{!loading && data ? rows[0].__typename : 'No Data'}</Typography>
-        </Toolbar>
-        <Grid rows={rows} columns={columns} getRowId={getRowId}>
-          <EditingState onCommitChanges={commitChanges} />
-          <SearchState />
-          <IntegratedFiltering />
-          <Table />
-          <TableHeaderRow />
-          <GridToolbar />
-          <SearchPanel />
-          <TableEditRow />
-          <TableEditColumn showAddCommand showEditCommand showDeleteCommand />
-        </Grid>
-      </Paper>
+      <DataTable
+        commitChanges={commitChanges}
+        rows={producers}
+        title={title}
+      />
     </div>
   );
 }
-
-export default Producers;
