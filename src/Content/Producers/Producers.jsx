@@ -1,6 +1,5 @@
 import React from "react";
 import { useQuery, useMutation } from "@apollo/react-hooks";
-import gql from "graphql-tag";
 import { makeStyles } from "@material-ui/core/styles";
 import { camelCaseToTitle } from "../../utils/string";
 import {
@@ -13,107 +12,13 @@ import {
 import { Toolbar, Typography, Paper } from "@material-ui/core";
 import { EditingState } from "@devexpress/dx-react-grid";
 
+import { GET_PRODUCERS, ADD_PRODUCER, UPDATE_PRODUCER, DELETE_PRODUCER } from "./queries";
+
 const useStyles = makeStyles(theme => ({
   root: {
     maxWidth: "100vw"
   }
 }));
-
-const GET_PRODUCERS = gql`
-  {
-    producers {
-      name
-      location
-      productTypes
-      contactPerson
-      phoneNumber
-      email
-      website
-      notes
-      id
-    }
-  }
-`;
-
-const ADD_PRODUCER = gql`
-  mutation(
-    $name: String
-    $location: String
-    $productTypes: String
-    $contactPerson: String
-    $phoneNumber: String
-    $email: String
-    $website: String
-    $notes: String
-  ) {
-      addProducer(
-        name: $name
-        location: $location
-        productTypes: $productTypes
-        contactPerson: $contactPerson
-        phoneNumber: $phoneNumber
-        email: $email
-        website: $website
-        notes: $notes
-      ) {
-          id
-          name
-          location
-          productTypes
-          contactPerson
-          phoneNumber
-          email
-          website
-          notes
-        }
-    }
-`;
-
-const UPDATE_PRODUCER = gql`
-  mutation(
-    $id: ID!
-    $name: String
-    $location: String
-    $productTypes: String
-    $contactPerson: String
-    $phoneNumber: String
-    $email: String
-    $website: String
-    $notes: String
-  ) {
-      updateProducer(
-        id: $id
-        name: $name
-        location: $location
-        productTypes: $productTypes
-        contactPerson: $contactPerson
-        phoneNumber: $phoneNumber
-        email: $email
-        website: $website
-        notes: $notes
-      ) {
-          id
-          name
-          location
-          productTypes
-          contactPerson
-          phoneNumber
-          email
-          website
-          notes
-        }
-    }
-`;
-
-const DELETE_PRODUCER = gql`
-  mutation(
-    $id: ID!
-  ) {
-      deleteProducer(id: $id) {
-        id
-      }
-    }
-`;
 
 const getRowId = row => row.id;
 
@@ -142,7 +47,6 @@ function Producers() {
     {
       update(cache, { data: { deleteProducer } }) {
         const { producers } = cache.readQuery({ query: GET_PRODUCERS });
-        console.log([deleteProducer])
         cache.writeQuery({
           query: GET_PRODUCERS,
           data: { producers: producers.filter(producer => producer.id !== [deleteProducer][0].id) },
@@ -157,7 +61,6 @@ function Producers() {
   let columns = [];
   if (data) {
     rows = data.producers
-
     columns = Object.keys(rows[0]).map(key => ({
       title: camelCaseToTitle(key), name: key
     }));
@@ -182,7 +85,6 @@ function Producers() {
     }
 
     if (deleted) {
-      console.log(deleted)
       deleteProducer({ variables: { id: deleted[0] } })
     }
   };
