@@ -7,10 +7,12 @@ import {
   Table,
   TableHeaderRow,
   TableEditRow,
-  TableEditColumn
+  TableEditColumn,
+  SearchPanel,
+  Toolbar as GridToolbar
 } from "@devexpress/dx-react-grid-material-ui";
 import { Toolbar, Typography, Paper } from "@material-ui/core";
-import { EditingState } from "@devexpress/dx-react-grid";
+import { EditingState, IntegratedFiltering, SearchState } from "@devexpress/dx-react-grid";
 
 import { GET_PRODUCERS, ADD_PRODUCER, UPDATE_PRODUCER, DELETE_PRODUCER } from "./queries";
 
@@ -97,8 +99,12 @@ function Producers() {
         </Toolbar>
         <Grid rows={rows} columns={columns} getRowId={getRowId}>
           <EditingState onCommitChanges={commitChanges} />
+          <SearchState />
+          <IntegratedFiltering />
           <Table />
           <TableHeaderRow />
+          <GridToolbar />
+          <SearchPanel />
           <TableEditRow />
           <TableEditColumn showAddCommand showEditCommand showDeleteCommand />
         </Grid>
