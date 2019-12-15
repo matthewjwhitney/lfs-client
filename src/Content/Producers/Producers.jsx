@@ -43,8 +43,6 @@ export default function Producers() {
     }
   );
 
-  let producers = [];
-
   const { loading, error, data } = useQuery(GET_PRODUCERS);
 
   const { enqueueSnackbar } = useSnackbar();
@@ -56,6 +54,7 @@ export default function Producers() {
     enqueueSnackbar('Fetching data');
   };
 
+  let producers = [];
   if (data) {
     enqueueSnackbar('Data fetched successfully', { variant: 'success' });
     producers = data.producers

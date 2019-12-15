@@ -1,6 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Producers from "./Producers";
+import { Route } from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
   content: {
@@ -9,12 +10,12 @@ const useStyles = makeStyles(theme => ({
   headerSpacer: theme.mixins.toolbar
 }));
 
-function Content(props) {
+function Content() {
   const classes = useStyles();
   return (
     <main className={classes.content}>
       <div className={classes.headerSpacer} />
-      <Producers />
+      <Route path="/Producers" component={Producers} />
     </main>
   );
 }

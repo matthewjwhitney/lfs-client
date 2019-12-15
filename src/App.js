@@ -9,10 +9,16 @@ import {
   makeStyles
 } from "@material-ui/core/styles";
 import { SnackbarProvider } from 'notistack';
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { fas } from '@fortawesome/free-solid-svg-icons'
+import { faSeedling } from '@fortawesome/free-solid-svg-icons'
 
 import Header from "./Header";
-import SideBar from "./SideBar";
+import Navigation from "./Navigation";
 import Content from "./Content";
+import { BrowserRouter } from "react-router-dom";
+
+library.add(fas, faSeedling)
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -24,7 +30,7 @@ const client = new ApolloClient({
   uri: process.env.REACT_APP_SERVER_URI
 });
 
-function App() {
+export default function App() {
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
 
   const theme = React.useMemo(
@@ -40,19 +46,19 @@ function App() {
   const classes = useStyles();
   return (
     <ApolloProvider client={client}>
-      <ThemeProvider theme={theme}>
-        <div className={classes.root}>
-          <CssBaseline>
-            <SnackbarProvider maxSnack={3}>
-              <Header />
-              <SideBar />
-              <Content />
-            </SnackbarProvider>
-          </CssBaseline>
-        </div>
-      </ThemeProvider>
+      <BrowserRouter>
+        <ThemeProvider theme={theme}>
+          <div className={classes.root}>
+            <CssBaseline>
+              <SnackbarProvider maxSnack={3}>
+                <Header />
+                <Navigation />
+                <Content />
+              </SnackbarProvider>
+            </CssBaseline>
+          </div>
+        </ThemeProvider>
+      </BrowserRouter>
     </ApolloProvider>
   );
 }
-
-export default App;
