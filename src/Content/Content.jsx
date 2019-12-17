@@ -18,7 +18,7 @@ function Content() {
   return (
     <main className={classes.content}>
       <div className={classes.headerSpacer} />
-      <Route path="/Producers" component={Producers} />
+      <Route path="/" component={Producers} />
     </main>
   );
 }

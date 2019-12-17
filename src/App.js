@@ -15,7 +15,6 @@ import Navigation from "./Navigation";
 import Content from "./Content";
 import { BrowserRouter } from "react-router-dom";
 
-import './app.scss';
 import { blueGrey, brown } from "@material-ui/core/colors";
 
 const useStyles = makeStyles(theme => ({
