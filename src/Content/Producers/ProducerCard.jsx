@@ -7,7 +7,7 @@ import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorderOutlined";
 import ShareIcon from "@material-ui/icons/ShareOutlined";
 import MoreVertIcon from "@material-ui/icons/MoreVertOutlined";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
+import { faGlobe } from "@fortawesome/free-solid-svg-icons"
 const useStyles = makeStyles(theme => ({
 }));
 
@@ -45,7 +45,7 @@ export default function ProducerCard(props) {
           <IconButton>
             <ShareIcon />
           </IconButton><IconButton>
-            <FontAwesomeIcon icon="globe" />
+            <FontAwesomeIcon icon={faGlobe} />
           </IconButton>
         </div>
       </div >

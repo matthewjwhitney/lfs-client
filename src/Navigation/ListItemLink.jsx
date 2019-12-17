@@ -1,13 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import { Link as RouterLink } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export default function ListItemLink(props) {
-    const { icon, title, path } = props;
+    const { title, path } = props;
 
     const renderLink = React.useMemo(
         () =>
@@ -19,7 +17,6 @@ export default function ListItemLink(props) {
 
     return (
         <ListItem button component={renderLink}>
-            {icon && <ListItemIcon><FontAwesomeIcon icon={icon} size="lg" /></ListItemIcon>}
             <ListItemText primary={title} />
         </ListItem>
     );

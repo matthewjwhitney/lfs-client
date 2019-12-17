@@ -3,10 +3,8 @@ import { useQuery, useMutation } from "@apollo/react-hooks";
 import { makeStyles } from "@material-ui/core/styles";
 
 import { GET_PRODUCERS, ADD_PRODUCER, UPDATE_PRODUCER, DELETE_PRODUCER } from "./queries";
-import DataTable from "../../components/DataTable";
 import { useSnackbar } from "notistack";
 import ProducerCard from "./ProducerCard";
-import { Grid } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
   root: {

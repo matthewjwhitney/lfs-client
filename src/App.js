@@ -9,8 +9,6 @@ import {
   makeStyles
 } from "@material-ui/core/styles";
 import { SnackbarProvider } from 'notistack';
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { faSeedling, faEdit, faSave, faTrash, faTimes, faPlus, faGlobe } from '@fortawesome/free-regular-svg-icons'
 
 import Header from "./Header";
 import Navigation from "./Navigation";
@@ -19,8 +17,6 @@ import { BrowserRouter } from "react-router-dom";
 
 import './app.scss';
 import { blueGrey, brown } from "@material-ui/core/colors";
-
-library.add(faSeedling, faEdit, faSave, faTrash, faTimes, faPlus, faGlobe)
 
 const useStyles = makeStyles(theme => ({
   root: {
