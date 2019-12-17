@@ -5,7 +5,13 @@ export function getInitials(string) {
 
 export function camelCaseToTitle(string) {
   const title = string
-  .replace(/([A-Z])/g, ' $1')
-  .replace(/^./, function(str){ return str.toUpperCase(); });
+    .replace(/([A-Z])/g, ' $1')
+    .replace(/^./, function (str) { return str.toUpperCase(); });
   return title;
+}
+
+export function formatURL(str) {
+  if (str.substring(0, 7) !== 'http://')
+    str = 'http://' + str;
+  return str;
 }

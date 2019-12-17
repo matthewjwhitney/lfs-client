@@ -8,6 +8,7 @@ import ShareIcon from "@material-ui/icons/ShareOutlined";
 import MoreVertIcon from "@material-ui/icons/MoreVertOutlined";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGlobe } from "@fortawesome/free-solid-svg-icons"
+import { formatURL } from "../../utils/string";
 const useStyles = makeStyles(theme => ({
 }));
 
@@ -19,7 +20,7 @@ export default function ProducerCard(props) {
   const Media = () => props.image ?
     <img src={props.image} alt={props.name} />
     : <Skeleton variant="rect" width='100%' height={200} />;
-  console.log(props.tags.split(','))
+
   return (
     <Paper square style={{ marginBottom: 1 }}>
       <div style={{ display: 'flex' }}>
@@ -33,7 +34,7 @@ export default function ProducerCard(props) {
           <Typography variant="body2" color="textSecondary" component="p" gutterBottom>
             {props.description}
           </Typography>
-          {props.tags.split(',').map(tag => <Chip size="small" label={tag} />)}
+          {props.tags.split(',').map(tag => <Chip key={tag} size="small" label={tag} />)}
         </div>
         <div style={{ flexGrow: 1 }}>
           <IconButton>
@@ -44,7 +45,8 @@ export default function ProducerCard(props) {
           </IconButton>
           <IconButton>
             <ShareIcon />
-          </IconButton><IconButton>
+          </IconButton>
+          <IconButton target="_blank" href={formatURL(props.website)}>
             <FontAwesomeIcon icon={faGlobe} />
           </IconButton>
         </div>
@@ -58,5 +60,6 @@ ProducerCard.propTypes = {
   image: PropTypes.string,
   name: PropTypes.string,
   description: PropTypes.string,
-  tags: PropTypes.string
+  tags: PropTypes.string,
+  website: PropTypes.string
 };

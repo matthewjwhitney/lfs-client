@@ -92,6 +92,7 @@ export default function Producers() {
       name={producer.name}
       description={description}
       tags={producer.productTypes}
+      website={producer.website}
     />
   );
 }
