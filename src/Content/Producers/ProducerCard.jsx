@@ -1,86 +1,62 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import clsx from "clsx";
-import Card from "@material-ui/core/Card";
-import CardHeader from "@material-ui/core/CardHeader";
-import CardMedia from "@material-ui/core/CardMedia";
-import CardContent from "@material-ui/core/CardContent";
-import CardActions from "@material-ui/core/CardActions";
-import Collapse from "@material-ui/core/Collapse";
-import Avatar from "@material-ui/core/Avatar";
-import IconButton from "@material-ui/core/IconButton";
-import Typography from "@material-ui/core/Typography";
-import FavoriteIcon from "@material-ui/icons/Favorite";
-import ShareIcon from "@material-ui/icons/Share";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
+import PropTypes from 'prop-types';
+import Skeleton from '@material-ui/lab/Skeleton';
+import { Paper, IconButton, Typography, useTheme, Chip, makeStyles } from "@material-ui/core";
+import FavoriteIcon from "@material-ui/icons/FavoriteOutlined";
+import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorderOutlined";
+import ShareIcon from "@material-ui/icons/ShareOutlined";
+import MoreVertIcon from "@material-ui/icons/MoreVertOutlined";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const useStyles = makeStyles(theme => ({
-  expand: {
-    transform: "rotate(0deg)",
-    marginLeft: "auto",
-    transition: theme.transitions.create("transform", {
-      duration: theme.transitions.duration.shortest
-    })
-  },
-  expandOpen: {
-    transform: "rotate(180deg)"
-  }
 }));
+
 
 export default function ProducerCard(props) {
   const classes = useStyles();
-  const [expanded, setExpanded] = React.useState(false);
+  const theme = useTheme();
 
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
-
+  const Media = () => props.image ?
+    <img src={props.image} alt={props.name} />
+    : <Skeleton variant="rect" width='100%' height={200} />;
+  console.log(props.tags.split(','))
   return (
-    <Card className={classes.card}>
-      <CardHeader
-        avatar={
-          <Avatar aria-label="avatar" className={classes.avatar}>
-            {props.avatar}
-          </Avatar>
-        }
-        action={
-          <IconButton aria-label="settings">
+    <Paper square style={{ marginBottom: 1 }}>
+      <div style={{ display: 'flex' }}>
+        <div style={{ flexGrow: 1, width: '100%', height: '100%' }}>
+          <Media />
+        </div>
+        <div style={{ flexGrow: 1, minWidth: '400px', padding: theme.spacing(2) }}>
+          <Typography variant="h5" component="h2">
+            {props.name}
+          </Typography>
+          <Typography variant="body2" color="textSecondary" component="p" gutterBottom>
+            {props.description}
+          </Typography>
+          {props.tags.split(',').map(tag => <Chip size="small" label={tag} />)}
+        </div>
+        <div style={{ flexGrow: 1 }}>
+          <IconButton>
             <MoreVertIcon />
           </IconButton>
-        }
-        title={props.header}
-        subheader={props.subheader}
-      />
-      <CardMedia image={props.image} title={props.imagetitle}>
-        {props.placeholder}
-      </CardMedia>
-      <CardContent>
-        <Typography variant="body2" color="textSecondary" component="p">
-          {props.bodyAboveExpand}
-        </Typography>
-      </CardContent>
-      <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
-        </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon />
-        </IconButton>
-        <IconButton
-          className={clsx(classes.expand, {
-            [classes.expandOpen]: expanded
-          })}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label="show more"
-        >
-          <ExpandMoreIcon />
-        </IconButton>
-      </CardActions>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardContent>{props.bodyBelowExpand}</CardContent>
-      </Collapse>
-    </Card>
+          <IconButton>
+            <FavoriteBorderIcon />
+          </IconButton>
+          <IconButton>
+            <ShareIcon />
+          </IconButton><IconButton>
+            <FontAwesomeIcon icon="globe" />
+          </IconButton>
+        </div>
+      </div >
+    </Paper >
   );
 }
+
+ProducerCard.propTypes = {
+  id: PropTypes.string,
+  image: PropTypes.string,
+  name: PropTypes.string,
+  description: PropTypes.string,
+  tags: PropTypes.string
+};

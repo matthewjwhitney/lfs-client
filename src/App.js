@@ -10,14 +10,17 @@ import {
 } from "@material-ui/core/styles";
 import { SnackbarProvider } from 'notistack';
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { fas, faSeedling, faEdit, faSave, faTrash, faTimes, faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faSeedling, faEdit, faSave, faTrash, faTimes, faPlus, faGlobe } from '@fortawesome/free-regular-svg-icons'
 
 import Header from "./Header";
 import Navigation from "./Navigation";
 import Content from "./Content";
 import { BrowserRouter } from "react-router-dom";
 
-library.add(fas, faSeedling, faEdit, faSave, faTrash, faTimes, faPlus)
+import './app.scss';
+import { blueGrey, brown } from "@material-ui/core/colors";
+
+library.add(faSeedling, faEdit, faSave, faTrash, faTimes, faPlus, faGlobe)
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -36,7 +39,17 @@ export default function App() {
     () =>
       createMuiTheme({
         palette: {
-          type: prefersDarkMode ? "dark" : "light"
+          type: prefersDarkMode ? "dark" : "light",
+          primary: blueGrey,
+          secondary: brown,
+        },
+        typography: {
+          h1: { fontFamily: 'Fjalla One' },
+          h2: { fontFamily: 'Fjalla One' },
+          h3: { fontFamily: 'Fjalla One' },
+          h4: { fontFamily: 'Fjalla One' },
+          h5: { fontFamily: 'Fjalla One' },
+          h6: { fontFamily: 'Fjalla One' },
         }
       }),
     [prefersDarkMode]
@@ -51,7 +64,7 @@ export default function App() {
             <CssBaseline>
               <SnackbarProvider maxSnack={3}>
                 <Header />
-                <Navigation />
+                {/* <Navigation /> */}
                 <Content />
               </SnackbarProvider>
             </CssBaseline>

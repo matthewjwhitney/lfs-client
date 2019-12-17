@@ -8,7 +8,8 @@ import {
     TableEditRow,
     TableEditColumn,
     SearchPanel,
-    Toolbar
+    Toolbar,
+    TableColumnVisibility
 } from "@devexpress/dx-react-grid-material-ui";
 import { Paper } from "@material-ui/core";
 import { EditingState, IntegratedFiltering, IntegratedSorting, SearchState, SortingState } from "@devexpress/dx-react-grid";
@@ -33,24 +34,29 @@ export default function DataTable(props) {
             title: camelCaseToTitle(key), name: key
         }));
     }
+    console.log(columns)
+    const [defaultHiddenColumnNames] = ['id', '__typename'];
     return (
         <div className={classes.root}>
             <Paper>
                 <Grid rows={rows} columns={columns} getRowId={getRowId}>
                     <EditingState onCommitChanges={commitChanges} />
-                    <SearchState />
+                    {/* <SearchState /> */}
                     <SortingState
                         defaultSorting={[{ columnName: 'name', direction: 'asc' }]}
                     />
                     <IntegratedSorting />
                     <IntegratedFiltering />
-                    <Toolbar />
-                    <ToolbarTitle >{title}</ToolbarTitle>
-                    <SearchPanel />
+                    {/* <Toolbar /> */}
+                    {/* <ToolbarTitle >{title}</ToolbarTitle> */}
+                    {/* <SearchPanel /> */}
                     <Table />
                     <TableHeaderRow showSortingControls />
                     <TableEditColumn showAddCommand showEditCommand showDeleteCommand commandComponent={Command} />
                     <TableEditRow />
+                    <TableColumnVisibility
+                        defaultHiddenColumnNames={defaultHiddenColumnNames}
+                    />
                 </Grid>
             </Paper>
         </div>

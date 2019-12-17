@@ -1,30 +1,28 @@
 import React from 'react';
 import { IconButton } from '@material-ui/core';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
+import { AddOutlined, DeleteOutlined, EditOutlined, CloseOutlined, SaveOutlined } from '@material-ui/icons'
 
 const AddButton = ({ onExecute }) => (
     <div style={{ textAlign: 'center' }}>
         <IconButton
-            color="secondary"
             onClick={onExecute}
             title="Create new row"
         >
-            <FontAwesomeIcon icon="plus" />
+            <AddOutlined />
         </IconButton>
     </div>
 );
 
 const EditButton = ({ onExecute }) => (
     <IconButton
-        color="secondary" onClick={onExecute} title="Edit row">
-        <FontAwesomeIcon icon="edit" />
+        onClick={onExecute} title="Edit row">
+        <EditOutlined />
     </IconButton>
 );
 
 const DeleteButton = ({ onExecute }) => (
     <IconButton
-        color="secondary"
+
         onClick={() => {
             // eslint-disable-next-line
             if (window.confirm('Are you sure you want to delete this row?')) {
@@ -33,21 +31,21 @@ const DeleteButton = ({ onExecute }) => (
         }}
         title="Delete row"
     >
-        <FontAwesomeIcon icon="trash" />
+        <DeleteOutlined />
     </IconButton>
 );
 
 const CommitButton = ({ onExecute }) => (
     <IconButton
-        color="secondary" onClick={onExecute} title="Save changes">
-        <FontAwesomeIcon icon="save" />
+        onClick={onExecute} title="Save changes">
+        <SaveOutlined />
     </IconButton>
 );
 
 const CancelButton = ({ onExecute }) => (
     <IconButton
-        color="secondary" onClick={onExecute} title="Cancel changes">
-        <FontAwesomeIcon icon="times" />
+        onClick={onExecute} title="Cancel changes">
+        <CloseOutlined />
     </IconButton>
 );
 

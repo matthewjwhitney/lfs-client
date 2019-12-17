@@ -5,8 +5,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import { GET_PRODUCERS, ADD_PRODUCER, UPDATE_PRODUCER, DELETE_PRODUCER } from "./queries";
 import DataTable from "../../components/DataTable";
 import { useSnackbar } from "notistack";
-import ProducerCard from "./ProducerCard";
-import { Grid } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -62,7 +60,7 @@ export default function Producers() {
     producers = data.producers
 
   }
-  const description = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis tempus urna et purus vehicula feugiat. Proin non odio feugiat, tempor mauris id, iaculis erat. Etiam mattis id massa in viverra. Vestibulum viverra finibus felis, ac efficitur mi malesuada id. Phasellus et auctor ex, eget tincidunt eros. Nullam pharetra malesuada ipsum sed dapibus. Duis in neque tincidunt, rhoncus justo eget, suscipit odio. Donec eget dictum nisi. Mauris at cursus arcu. Vestibulum mi dui, commodo et accumsan in, consectetur et nisl. Nullam sed scelerisque urna. Maecenas metus risus, euismod sit amet rhoncus in, sodales non quam. Morbi egestas condimentum lacus tempor suscipit. Nulla sit amet pulvinar nisl. Mauris a nunc vitae erat sollicitudin iaculis. Integer justo neque, ornare nec neque sit amet, dapibus sodales ante.'
+  const title = 'Producers'
 
   const commitChanges = ({ added, changed, deleted }) => {
     if (added && Object.values(added)[0]) {
@@ -87,13 +85,13 @@ export default function Producers() {
     }
   };
 
-  return producers.map(producer =>
-    <ProducerCard
-      key={producer.id}
-      id={producer.id}
-      name={producer.name}
-      description={description}
-      tags={producer.productTypes}
-    />
+  return (
+    <div className={classes.root}>
+      <DataTable
+        commitChanges={commitChanges}
+        rows={producers}
+        title={title}
+      />
+    </div>
   );
 }

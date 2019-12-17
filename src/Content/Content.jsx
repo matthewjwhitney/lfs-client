@@ -6,6 +6,9 @@ import { Route } from "react-router-dom";
 const useStyles = makeStyles(theme => ({
   content: {
     flexGrow: 1,
+    width: '100vw',
+    height: '100vh',
+    overflow: 'auto'
   },
   headerSpacer: theme.mixins.toolbar
 }));
